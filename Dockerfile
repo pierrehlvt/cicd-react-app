@@ -1,12 +1,16 @@
-FROM node:14-alpine AS development
-ENV NODE_ENV development
-# Add a work directory
+FROM node:14-alpine
+
 WORKDIR /app
-# Cache and Install dependencies
+
 COPY package.json .
 COPY package-lock.json .
+
 RUN npm install
-# Copy app files
+
 COPY . .
-# Start the app
-CMD [ "npm", "start" ]
+
+RUN npm run build --production
+
+RUN npm install -g serve
+
+CMD [ "serve", "-s", "build" ]
