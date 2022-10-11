@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      -  # Checks-out repository to allow the job to access it
+      # Checks-out repository to allow the job to access it
       - name: deploy prod
         uses: actions/checkout@v2
       - name: Use Node.js 17.x
