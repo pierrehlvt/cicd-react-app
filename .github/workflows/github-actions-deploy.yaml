@@ -24,6 +24,7 @@ jobs:
           npm run build --if-present
           npm test
       - name: deploy to server
+        uses: pierrehlvt/cicd-react-app@main
         with:
           host: ${{ secrets.HOST }}
           key: ${{ secrets.PRIVATE_KEY }}
