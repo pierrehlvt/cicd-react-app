@@ -1,26 +1,32 @@
 name: github-actions-deploy
 
+# Controls when the action will run.
 on:
+  # Triggers the workflow on push on main branch
   push:
     branches:
       - main
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     steps:
+      -  # Checks-out repository to allow the job to access it
       - name: deploy prod
         uses: actions/checkout@v2
       - name: Use Node.js 17.x
         uses: actions/setup-node@v1
         with:
-          node-version: 17.x
+          node-version: 17.x # We will deploy with this node version
       - run: npm install
       - run: npm run build
       - run: npm run test
       - name: Deploy to server
-        uses: appleboy/scp-action@master
+        uses: appleboy/scp-action@master # We use this repository that allow remote ssh commands
+        # Setting remote parameters configured in repository secrets
         with:
           key: ${{ secrets.PRIVATE_KEY }}
           host: ${{ secrets.HOST }}

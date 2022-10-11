@@ -69,3 +69,30 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # cicd-react-app
+
+# DEPLOY TO SERVER WITH GITHUB ACTIONS
+### `github-actions-deploy.yaml`
+This file allow to deploy the build on a distant server on push on main branch
+
+First, you need to create repository secrets.
+To do this you need to go to : 
+### `Repository setting` -> `Secrets` -> `Actions` -> `New Repository secret`
+
+Now you need create `HOST`, `PORT`, `USERNAME`, `PRIVATE_KEY` and `PASSPHRASE` secrets.
+
+After this, you can push on main and workflow will deploy your build on your server.
+For more information check the `github-actions-deploy.yaml` comments.
+
+# DOCKER
+
+To build a docker container of this app, run these commands : 
+
+`docker build -t your-image-name .` This command allow to build a Docker image from the Dockerfile
+
+This command allow to create a container from the image built before, 3000 is the container's port, you need to add the port you want on your localhost, for example we set on port 3001 below, but you can set the port that you want
+`docker run -p local-port-you-want:3001 your-image-name`
+
+Congratulations, you can now access your app on http://localhost:3001
+
+
+
