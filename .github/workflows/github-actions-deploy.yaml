@@ -3,14 +3,14 @@ name: github-actions-deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Prod
+      - name: deploy prod
         uses: actions/checkout@v2
       - name: Use Node.js 17.x
         uses: actions/setup-node@v1
