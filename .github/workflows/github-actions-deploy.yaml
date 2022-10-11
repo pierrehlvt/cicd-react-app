@@ -2,31 +2,29 @@ name: github-actions-deploy
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - master
 
 jobs:
-  build_test:
+  deploy:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Prod
+        uses: actions/checkout@v2
+      - name: Use Node.js 17.x
+        uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: npm ci, build and test
-        run: |
-          npm ci
-          npm run build --if-present
-          npm test
-      - name: deploy to server
+          node-version: 17.x
+      - run: npm install
+      - run: npm run build
+      - run: npm run test
+      - name: Deploy to server
         uses: pierrehlvt/cicd-react-app@main
         with:
-          host: ${{ secrets.HOST }}
           key: ${{ secrets.PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          publish_dir: ./web
+          port: ${{ secrets.PORT }}
+          source: "build/"
+          target: "/home/pierre/web"
