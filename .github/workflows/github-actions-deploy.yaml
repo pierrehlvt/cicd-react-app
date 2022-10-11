@@ -25,6 +25,7 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
+          passphrase: ${{ secrets.PASSPHRASE }}
           port: ${{ secrets.PORT }}
           source: "build/"
           target: "/home/pierre/web"
